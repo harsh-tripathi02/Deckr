@@ -4,10 +4,10 @@ function Footer() {
   return (
     <footer className="footer">
       <p>&copy; {new Date().getFullYear()} Deckr</p>
-      <p>Extract slides from educational videos with ease</p>
+      <p>Extract videos with ease</p>
 
       <div className="footer-links">
-        <a href="#" className="footer-link">
+        <a href="mailto:tripathiiharsh02@gmail.com" className="footer-link">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -23,7 +23,7 @@ function Footer() {
           </svg>
           Help
         </a>
-        <a href="#" className="footer-link">
+        <a href="tel:+919305516589" className="footer-link">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -37,7 +37,7 @@ function Footer() {
           </svg>
           Contact
         </a>
-        <a href="#" className="footer-link">
+        <a href="https://github.com/harsh-tripathi02/Deckr" className="footer-link">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
