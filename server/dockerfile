@@ -1,0 +1,23 @@
+FROM node:18-alpine
+
+
+WORKDIR /usr/src/app
+
+RUN apk add --no-cache \
+      ffmpeg \
+      tesseract-ocr \
+      wget \
+ && wget -O /usr/local/bin/yt-dlp \
+      https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
+ && chmod a+rx /usr/local/bin/yt-dlp
+
+COPY package*.json ./
+
+ENV YOUTUBE_DL_SKIP_PYTHON_CHECK=1
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 5000
+CMD ["npm", "run", "dev"]
