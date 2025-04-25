@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { API_BASE_URL } from "../api";
 import "./SlideViewer.css"
 
 function SlideViewer({ slides }) {
@@ -75,7 +76,7 @@ function SlideViewer({ slides }) {
         </button>
 
         <div className="slide">
-          <img src={`/api/slides/${slides[currentSlide]}`} alt={`Slide ${currentSlide + 1}`} />
+          <img src={`${API_BASE_URL}/api/slides/${slides[currentSlide]}`} alt={`Slide ${currentSlide + 1}`} />
           <div className="slide-counter">
             {currentSlide + 1} / {slides.length}
           </div>
@@ -116,7 +117,7 @@ function SlideViewer({ slides }) {
             className={`thumbnail ${index === currentSlide ? "active" : ""}`}
             onClick={() => setCurrentSlide(index)}
           >
-            <img src={`/api/slides/${slide}?thumbnail=true`} alt={`Thumbnail ${index + 1}`} />
+            <img src={`${API_BASE_URL}/api/slides/${slide}?thumbnail=true`} alt={`Thumbnail ${index + 1}`} />
           </div>
         ))}
       </div>
@@ -124,7 +125,7 @@ function SlideViewer({ slides }) {
       {fullscreen && (
         <div className="fullscreen-overlay" onClick={toggleFullscreen} onKeyDown={handleKeyDown} tabIndex={0}>
           <img
-            src={`/api/slides/${slides[currentSlide]}`}
+            src={`${API_BASE_URL}/api/slides/${slides[currentSlide]}`}
             alt={`Slide ${currentSlide + 1}`}
             className="fullscreen-image"
             onClick={(e) => e.stopPropagation()}

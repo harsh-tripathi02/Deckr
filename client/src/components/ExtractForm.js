@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { apiFetch } from "../api";
 import "./ExtractForm.css"
 
 function ExtractForm({ onSubmit, disabled }) {
@@ -32,7 +33,7 @@ function ExtractForm({ onSubmit, disabled }) {
   const fetchVideoInfo = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch(`/api/video-info?url=${encodeURIComponent(url)}`)
+      const response = await apiFetch(`/api/video-info?url=${encodeURIComponent(url)}`)
       const data = await response.json()
 
       if (data.success) {

@@ -1,5 +1,6 @@
 "use client"
 import "./HistoryList.css"
+import { API_BASE_URL } from "../api";
 
 function HistoryList({ history, onViewExtraction }) {
   if (!history || history.length === 0) {
@@ -102,7 +103,7 @@ function HistoryList({ history, onViewExtraction }) {
                   <button
                     className="pdf-link"
                     style={{ marginBottom: 6 }}
-                    onClick={() => window.open(`http://localhost:5000${item.pdfUrl}`, '_blank')}
+                    onClick={() => window.open(`${API_BASE_URL}${item.pdfUrl}`, '_blank')}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +125,7 @@ function HistoryList({ history, onViewExtraction }) {
                     className="pdf-link"
                     onClick={async (e) => {
                       e.preventDefault();
-                      const response = await fetch(`http://localhost:5000${item.pdfUrl}`);
+                      const response = await fetch(`${API_BASE_URL}${item.pdfUrl}`);
                       const blob = await response.blob();
                       const link = document.createElement('a');
                       link.href = window.URL.createObjectURL(blob);

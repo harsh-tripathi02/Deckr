@@ -8,6 +8,7 @@ import ProgressBar from "./components/ProgressBar"
 import SlideViewer from "./components/SlideViewer"
 import HistoryList from "./components/HistoryList"
 import Footer from "./components/Footer"
+import { apiFetch, API_BASE_URL } from "./api"
 
 function App() {
   const [currentJob, setCurrentJob] = useState(null)
@@ -27,7 +28,7 @@ function App() {
   // Fetch history from the server
   const fetchHistory = async () => {
     try {
-      const response = await fetch("/api/history")
+      const response = await apiFetch("/api/history")
       const data = await response.json()
       if (data.success) {
         setHistory(data.history)
@@ -44,7 +45,7 @@ function App() {
     setSlides([])
 
     try {
-      const response = await fetch("/api/extract", {
+      const response = await apiFetch("/api/extract", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +71,7 @@ function App() {
   // Check the status of a job
   const checkJobStatus = async (jobId) => {
     try {
-      const response = await fetch(`/api/status/${jobId}`)
+      const response = await apiFetch(`/api/status/${jobId}`)
       const data = await response.json()
 
       setJobStatus(data.status)
@@ -98,7 +99,7 @@ function App() {
 
   // Utility function to download PDF as a file
   const downloadPdf = async (pdfUrl, filename = "slides.pdf") => {
-    const response = await fetch(pdfUrl)
+    const response = await apiFetch(pdfUrl)
     const blob = await response.blob()
     const link = document.createElement("a")
     link.href = window.URL.createObjectURL(blob)
@@ -116,7 +117,7 @@ function App() {
       setIsGeneratingPdf(true)
       setProcessingStage("Generating PDF...")
 
-      const response = await fetch(`/api/generate-pdf/${currentJob}`, {
+      const response = await apiFetch(`/api/generate-pdf/${currentJob}`, {
         method: "POST",
       })
 
@@ -142,7 +143,7 @@ function App() {
   // View a previous extraction
   const viewExtraction = async (jobId) => {
     try {
-      const response = await fetch(`/api/status/${jobId}`)
+      const response = await apiFetch(`/api/status/${jobId}`)
       const data = await response.json()
 
       if (data.success) {
@@ -214,7 +215,7 @@ function App() {
                 </p>
 
                 {jobStatus === "completed" && pdfUrl && (
-                  <button className="pdf-button" onClick={() => window.open(`http://localhost:5000${pdfUrl}`, '_blank')} style={{marginRight: 8}}>
+                  <button className="pdf-button" onClick={() => window.open(`${API_BASE_URL}${pdfUrl}`, '_blank')} style={{marginRight: 8}}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="18"
